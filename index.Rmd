@@ -1,0 +1,70 @@
+--- 
+title: "Analytics for Startups"
+subtitle: "A Farm-to-Table Approach"
+author: "Tim Abraham"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+colorlinks: true
+github-repo: timabe/startup-analytics
+cover-image: images/cover.png
+description: "A practical guide to analytics for startups, written for data scientists, engineers, and product managers."
+---
+
+
+# Preface
+
+<img src="images/cover.png" width="350" height="460" alt="Cover image" />
+
+
+## Outline
+
+## About the Author
+I am a data scientist by trade and currently am an analytics advisor at [Expa](www.expa.com), a startup studio headquartered in San Francisco. For the last two years I have worked very closely with more than a dozen early stage startups, helping them leverage data to better understand their products. Some of the things I tried worked well, others didn't. But through over a dozen iterations, I've learned what works the best.
+
+And now I'd like to share that knowledge with you!
+
+Prior to Expa I was a data scientist at Twitter and StumbleUpon. When I'm not working with data you can find me in Berkeley, California where I live happily. My hobbies are making pickles, cooking, meditating, reading, and exploring nature. 
+
+## Tools we use
+Throughout the book we'll get our hands dirty and use several different tools and programming languages. These should be similar or exactly the same to the ones you'd use at a technology startup in 2017. Most of what we'll be using on the software side will be open source. The hardware side will be all cloud based. You should be able to work through all the chapters in this book without spending any money, although you will have to put a credit card down to get the free trials for some of the services we'll use.
+
+I'll introduce each tool as they come up later in the book, but for now you should know that we'll be using Amazon Web Services, Heroku, Segment, Google Analytics and Metabase on the software/cloud services side and gentle amounts of Python, SQL, and R on the programming side.
+
+## Who should read this book
+This book is intended for anyone that wants to use data to make better decisions at their company. I believe it will be especially useful for people working at early stage startups with no analytics infrastructure. In my experience, a startup usually has one person who is responsible for data and analytics. This person may or may not have the title of data scientist. I've seen curious engineers take on this role. I've seen product managers take it on as well. I've even seen product marketers and general managers own analytics at small companies. Let's put titles aside, since they mean different things at different companies. The question you probably have is, "given my (limited) technical skills, will I be able to read this book?". Let me outline three types of technical readers and give my best assesment of what you'll be able to do.
+
+### True Beginners
+You're super interested in data, but your techincal background consists of a little bit of Excel and a few "Hello, World!" code examples. You can still read this book, but you'll likely have to learn a few things along the way. Be prepared to google a lot of terms and don't be suprised if find yourself going down the rabbit hole on YouTube to teach yourself a little bit of command line skills.
+
+### Beginner to Intermediate
+You are passionate about data and familiar with few of the following: SQL, git, AWS, Python, Linux. You'll benefit highly from this book and should be able to follow along.
+
+### Advanced
+You're an experienced data scientist, engineer, or product manager. A lot of the concepts in this book may be review for you. Feel free to skip around and find the topics you're actually interested in putting into practice. 
+
+I believe many types of people will learn a lot from reading this book. The primary audience it's intended for are people working at early stage startups who want to leverage data to make smarter product decisions. 
+
+## Pies: A delicious case study
+I call this book a "Farm-to-Table" approach. This isn't just to make it sound trendy. The subtitle grew out of my frustration early on in my career to understand where my data was actually coming from. I knew I was generally fetching it from some tables in a relational database, or some abstraction of that concept. I never really understood how it was getting stored there to begin with. I was told to not worry about how the data flows through the system, since there are data engineers who are responsible for that type of stuff. While specialization and division of labor have their benefits, I think ultimately the person who owns the analytics functions at a company should know some things about how the data they rely so heavily on is produced.
+
+### Benefits of building your own app
+To address this gap in my knowledge, I decided to write a very minimal web application, using a Python microframework called [Flask](http://flask.pocoo.org/). I chose this framework because most people working in data are at least somewhat familiar with Python. My goal was to build something with basic client-server functionality that users could sign in and out of, with a database on the backend to store application specific data. Building this allowed me to take a data concept, like a row in the user table, follow it down the tech stack and connect it to the user object in the application code. While all the details of how to build an app are outside the scope of this book, I highly recommend curious readers to learn how it works. If you work with data professionally, learning this will allow you to better communicate with engineers and empathize with them. In building the app, I relied very heavily on the excellent book [Flask Web Development](https://www.amazon.com/Flask-Web-Development-Developing-Applications/dp/1449372627/) by Miguel Grinberg. 
+
+### Our Startup going forward
+Since pies are more delicious than widgets, the application we'll be using is the "Uber for Pies", an app called [Delicous Pies](https://github.com/timabe/pies). Imagine you're an early employee at an exciting startup that allows you to order pies directly from your web browser or smartphone and have them delivered in minutes! You've been put in charge of everything data related. In the coming chapters, you'll deploy your own instance of the app and make updates to it. This will give you a safe and simple environment to experiment with tools and peer under the hood of your data environment.
+
+Of course if you already have your own app and data and would like to use that instead, by all means do so! You should still be able to follow along and go through all the chapters.
+
+Okay, now let's begin with some theory. . .
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

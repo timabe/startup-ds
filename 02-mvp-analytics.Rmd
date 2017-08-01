@@ -1,0 +1,6 @@
+# MVP Analytics - Basic dashboards in an hour
+> You can't manage what you can't measure - Peter Drucker
+
+Just like a product starts out with an MVP, or minimum viable product, we'll do the same with our analytics product. 
+
+Let's think about the minimum features we want. We can imagine that some of the top data questions folks at our company will ask early on are simple questions like "how many pies did we sell yesterday?", "how many users signed up this week?" and "how much money have we earned this month?".  

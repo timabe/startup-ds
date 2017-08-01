@@ -1,0 +1,84 @@
+# Introduction {#intro}
+> I keep saying the sexy job in the next ten years will be statisticians - Hal Varian
+
+## What is analytics
+At a basic level analytics means collecting data, looking for patterns, and using those patterns to aide your decision making. 
+
+Analytics can be as simple as counting the number of users that use your product each day. Is it going up? Great, that is valuable information and supports the notion that our product is delivering value to users. If it is going down, well that's very valuable too. Knowing that could help us make hard decisions on what to change before it's too late.
+
+Analytics can be complex, too. A large company in 2017 might use a deep neural net to predict which of their users are at highest risk of churning, and then tailor product features to re-engage those users.
+
+
+## Why do startups need analytics?
+People say we live in an age of Big Data. Enormous companies like Google, Facebook, and Netflix are storing petabytes of data and using it to make smarter decisions. It's well understood that data is valuable to a business.
+
+But what if you don't have Big Data? What if you're a startup that just wants to throw their app on the app store and "see how it does"? You might argue that you don't need to invest anything in analytics. In fact, you might argue that since you're already strapped for cash, tasking your engineer or product manager with analytics is a dangerous waste of resources. Hiring a newly minted PhD to be your first data scientist also seems like overkill, since you actually don't have any data yet!
+
+All these arguments against building analytics into your company are valid, especially the one about hiring a newly minted PhD. At the same time, we have a contridiction. You want to release an app and "see how it does" before you invest in analytics. How are you going to see how it does without measuring things? You are going to need data from day one to understand if your app is generating any traction, so like it or not, you will have to build out some analytics for your company.
+
+
+## Deploying our application
+I mentioned in Chapter \@ref(preface) that we'd be deploying an app called Delicious Pies and using it as our case study. Let's begin with that and in the next few chapters we'll add, piece by piece, various data layers and services. 
+
+### Download the source code with git.
+The source code for Delicious Pies is on GitHub. If you've never heard of git, or never used it, don't worry for now. You probably have it installed on your computer. Open a terminal window and run the following command.
+
+```{bash}
+which git
+```
+
+If you see output similar to mine, congratulations, you have git installed. If you have configured git with your username, you can go ahead and clone the Delicious Pies repository into any directory you like.
+
+```{bash}
+git clone https://github.com/timabe/pies
+cd pies
+```
+
+If you don't have git installed and/or configured, have a look at [the documentation on GitHub on how to get set up](https://help.github.com/articles/set-up-git/).
+
+Now that you've got the source code in a directory called `pies`, we'll want to download the python modules needed for the app to function. 
+```{bash eval=FALSE}
+pip install virtualenv
+virtualenv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Let's run the app locally and see what it does. The first thing we'll do is seed the database with some random data. Normally data in our database would be a bi-product of users coming to our site, signing up, and ordering pies - but since this app is not yet open to traffic from other internet users, we'll just create some random data.
+```{bash eval=FALSE}
+python manage.py shell
+```
+
+```{python eval=FALSE}
+db.create_all()
+Pies.add_menu()
+quit()
+```
+
+
+Now you can run and play around with the functionality. Just run `python manage.py runserver` and navigate to http://127.0.0.1:5000/ or localhost:5000 in a browser.
+
+Once you've got the hang of what our new startup does, we can move on and deploy it so that other users of the internet can use it.
+
+### Heroku: The easiest way to deploy
+[Heroku](https://www.heroku.com), in their own words, are the fastest way to go from idea to URL. That sounds like exactly what we want. More formally, they are a cloud services platform, meaning they offer software that helps developers take their local code and run it on some remote server. Even better, they are free if you are using their most basic offerings, which we will use.
+
+Create a free account with them and sign in. You'll also need to download their [command line tools](https://devcenter.heroku.com/articles/heroku-cli) and sign in in your terminal. If the following commands don't make sense, don't worry. It's not super important that you know what they do just yet, my comments should give you the gist of what's going on.
+```{bash eval=FALSE}
+# log in and enter credentials
+heroku login
+# create an app. This creates the URL and a git repo. Enter whatever name you want to call it.
+heroku create <optional-name>
+# add your db. We'll be using postgres
+heroku addons:add heroku-postgresql:hobby-dev
+# set up some heroku environment vars
+heroku config:set FLASK_CONFIG=heroku
+heroku config:set SECRET_KEY=<your secret key>
+# push your code to the remote heroku git repo
+git push heroku master
+# now you can deploy the app!
+heroku run python manage.py deploy --make_menu --seed
+```
+
+If all goes well, you should be able to visit the url they gave you, which should look something like this `https://<app_name>.herokuapp.com` and open up the application. You now have your very own app, which we'll use as a foundation for all the data work to come.
+
